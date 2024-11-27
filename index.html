@@ -4,9 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estilos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
+    <header>
+        <section class="contenedor-encabezado">
+            <img src="Multi-PC_logo.png" alt="Logo de Multi PC" class="logo">
+            <input type="text" placeholder="Buscar productos..." class="barra-busqueda">
+            <div class="iconos">
+                <img src="login.png" alt="Icono de Usuario" class="icono">
+                <img src="carrito.png" alt="Icono de Cesta" class="icono">
+            </div>
+        </section>
+    </header>    
+    <footer>
+        <p><b>&copy; 2024 Multi-PC</b></p>
+    </footer>
     <script>
     const products = [
         {
@@ -26,7 +40,7 @@
         image: 'https://thumb.pccomponentes.com/w-150-150/articles/1070/10708336/1734-lenovo-ideapad-3-15itl6-intel-core-i5-1155g7-8-gb-512gb-ssd-156.jpg'
         },
         {
-        name: 'Asus VivoBook 14',
+        name: 'Asus VivoBook 14 Pro',
         price: 350,
         stars: 4,
         reviews: 320,
@@ -34,7 +48,7 @@
         image: 'https://thumb.pccomponentes.com/w-150-150/articles/1084/10847848/1943-asus-vivobook-14-f1404za-nk697w-intel-core-i7-1255u-16gb-512gb-ssd-14.jpg'
         },
         {
-        name: 'Acer Aspire 5 A515',
+        name: 'Acer Aspire 5 A5155',
         price: 399,
         stars: 4.2,
         reviews: 150,
@@ -42,7 +56,7 @@
         image: 'https://thumb.pccomponentes.com/w-150-150/articles/1083/10839661/1940-acer-aspire-3-a315-59-intel-core-i5-1235u-8gb-512gb-ssd-156-foto.jpg'
         },
         {
-        name: 'HP Pavilion 15',
+        name: 'HP Pavilion Plus 14-ew1011ns',
         price: 599,
         stars: 4.8,
         reviews: 400,
@@ -74,7 +88,7 @@
         image: 'https://thumb.pccomponentes.com/w-150-150/articles/39/394924/1794-microsoft-surface-laptop-4-platino-amd-ryzen-7-4980u-8gb-256-gb-ssd-15-tactil.jpg'
         },
         {
-        name: 'MacBook Air M1',
+        name: 'MacBook Air M1 Pro',
         price: 999,
         stars: 4.9,
         reviews: 800,
@@ -90,7 +104,101 @@
         image: 'https://thumb.pccomponentes.com/w-150-150/articles/1073/10733294/1394-hp-victus-16-s0011ns-amd-ryzen-7-7840hs-32gb-1tb-ssd-rtx-4060-161.jpg'
         }
         ];
+        //----------------------MENU PRINCIPAL----------------------------
+        const submenuComponentes = [
+        'Placas Base',
+        'Procesadores',
+        'Discos Duros',
+        'Discos Duros SSD',
+        'Tarjetas Gráficas',
+        'Memoria RAM',
+        'Torres/Cajas/Carcasas',
+        'Ventilación',
+        'Cables Internos PC',
+        'Tarjeta de Red'
+        ];
+        const submenuPerifericos = [ 
+        'Monitores',
+        'Teclados',
+        'Ratones',
+        'Altavoces',
+        'Auriculares',
+        'Webcams'
+        ];
+        const submenuImpresoras = [
+        'Impresoras Láser',
+        'Impresoras de Inyección de Tinta',
+        'Impresoras Matriciales'
+        ];
+        const nav = document.createElement('nav');
+        nav.className='navegacion';
         
+        const divMenuMovil = document.createElement('div');
+        divMenuMovil.className='menu-icon';
+        divMenuMovil.textContent='☰';
+        nav.appendChild(divMenuMovil);
+
+        const ulMenu = document.createElement('ul');
+        ulMenu.className='menu';
+
+        function creaSubmenu(array) {
+            const ulSubmenu = document.createElement('ul');
+            ulSubmenu.className = 'submenu';
+
+            for (let i = 0; i < array.length; i++) {
+                const liSubmenu = document.createElement('li');
+                const aSubmenu = document.createElement('a');
+                aSubmenu.href = '#';
+                aSubmenu.textContent = array[i];
+                liSubmenu.appendChild(aSubmenu);
+                ulSubmenu.appendChild(liSubmenu);
+            }
+
+            return ulSubmenu;
+        }
+
+        const menuItems = [
+        { name: 'Inicio', href: 'index.html'},
+        { name: 'Componentes de PC', href: '#', submenu: submenuComponentes },
+        { name: 'Periféricos', href: '#', submenu: submenuPerifericos },
+        { name: 'Impresoras', href: '#', submenu: submenuImpresoras },
+        { name: 'Antivirus', href: '#' },
+        { name: 'Contáctanos', href: '#' }
+        ];
+
+        for (let i = 0; i < menuItems.length; i++) {
+            const liMenuPrincipal = document.createElement('li');
+            const aMenuPrincipal = document.createElement('a');
+            aMenuPrincipal.href = menuItems[i].href;
+            aMenuPrincipal.textContent = menuItems[i].name;
+            liMenuPrincipal.appendChild(aMenuPrincipal);
+
+            if (menuItems[i].submenu && menuItems[i].submenu.length > 0) {
+                const submenu = creaSubmenu(menuItems[i].submenu);
+                liMenuPrincipal.appendChild(submenu);
+            }
+
+            ulMenu.appendChild(liMenuPrincipal);
+        }
+
+        nav.appendChild(ulMenu);
+
+        document.body.appendChild(nav);
+        //----------------------MENU DISPOSITIVOS MOVILES----------------
+        const menuIcon = document.querySelector('.menu-icon');
+        const menu = document.querySelector('.menu');
+        menuIcon.addEventListener('click', () => {
+            menu.classList.toggle('active');
+        });
+
+        menu.addEventListener('click', (event) => {
+            if (event.target.tagName === 'A') {
+                menu.classList.remove('active'); 
+                //window.location.href = event.target.href; 
+            }
+        });
+
+        //----------------------PRODUCTOS----------------
         const contenedorProducto = document.createElement('div');
         contenedorProducto.classList.add('contenedor');
         contenedorProducto.id = 'contenedor-producto';
@@ -99,7 +207,7 @@
             tarjeta.classList.add('tarjeta-producto');
 
         
-            card.innerHTML = `
+            tarjeta.innerHTML = `
             <img src="${products[i].image}" alt="${products[i].name}">
             <h3>${products[i].name}</h3>
             <p>Vendedor: ${products[i].seller}</p>
