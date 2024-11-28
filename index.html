@@ -105,66 +105,27 @@
         }
         ];
         //----------------------MENU PRINCIPAL----------------------------
-        const submenuComponentes = [
-        'Placas Base',
-        'Procesadores',
-        'Discos Duros',
-        'Discos Duros SSD',
-        'Tarjetas Gráficas',
-        'Memoria RAM',
-        'Torres/Cajas/Carcasas',
-        'Ventilación',
-        'Cables Internos PC',
-        'Tarjeta de Red'
-        ];
-        const submenuPerifericos = [ 
-        'Monitores',
-        'Teclados',
-        'Ratones',
-        'Altavoces',
-        'Auriculares',
-        'Webcams'
-        ];
-        const submenuImpresoras = [
-        'Impresoras Láser',
-        'Impresoras de Inyección de Tinta',
-        'Impresoras Matriciales'
+        const menuItems = [
+        { name: 'Inicio', href: 'index.html'},
+        { name: 'Componentes de PC', href: '#', submenu: ['Placas Base','Procesadores','Discos Duros','Discos Duros SSD','Tarjetas Gráficas','Memoria RAM','Carcasas','Ventilación','Cables Internos PC','Tarjeta de Red'
+        ]},
+        { name: 'Periféricos', href: '#', submenu: [ 'Monitores','Teclados','Ratones','Altavoces','Auriculares','Webcams'
+        ]},
+        { name: 'Impresoras', href: '#', submenu: ['Impresoras Láser','Impresoras de Inyección de Tinta','Impresoras Matriciales'
+        ] },
+        { name: 'Antivirus', href: '#' },
+        { name: 'Contáctanos', href: '#' }
         ];
         const nav = document.createElement('nav');
-        nav.className='navegacion';
-        
+        nav.className= 'navegacion';
+
         const divMenuMovil = document.createElement('div');
         divMenuMovil.className='menu-icon';
         divMenuMovil.textContent='☰';
         nav.appendChild(divMenuMovil);
 
         const ulMenu = document.createElement('ul');
-        ulMenu.className='menu';
-
-        function creaSubmenu(array) {
-            const ulSubmenu = document.createElement('ul');
-            ulSubmenu.className = 'submenu';
-
-            for (let i = 0; i < array.length; i++) {
-                const liSubmenu = document.createElement('li');
-                const aSubmenu = document.createElement('a');
-                aSubmenu.href = '#';
-                aSubmenu.textContent = array[i];
-                liSubmenu.appendChild(aSubmenu);
-                ulSubmenu.appendChild(liSubmenu);
-            }
-
-            return ulSubmenu;
-        }
-
-        const menuItems = [
-        { name: 'Inicio', href: 'index.html'},
-        { name: 'Componentes de PC', href: '#', submenu: submenuComponentes },
-        { name: 'Periféricos', href: '#', submenu: submenuPerifericos },
-        { name: 'Impresoras', href: '#', submenu: submenuImpresoras },
-        { name: 'Antivirus', href: '#' },
-        { name: 'Contáctanos', href: '#' }
-        ];
+        ulMenu.className= 'menu';
 
         for (let i = 0; i < menuItems.length; i++) {
             const liMenuPrincipal = document.createElement('li');
@@ -174,15 +135,25 @@
             liMenuPrincipal.appendChild(aMenuPrincipal);
 
             if (menuItems[i].submenu && menuItems[i].submenu.length > 0) {
-                const submenu = creaSubmenu(menuItems[i].submenu);
-                liMenuPrincipal.appendChild(submenu);
+                const ulSubmenu = document.createElement('ul');
+                ulSubmenu.className = 'submenu';
+
+                for (let o = 0; o < menuItems[i].submenu.length; o++) {
+                    const liSubmenu = document.createElement('li');
+                    const aSubmenu = document.createElement('a');
+                    aSubmenu.href = '#';
+                    aSubmenu.textContent = menuItems[i].submenu[o];
+                    liSubmenu.appendChild(aSubmenu);
+                    ulSubmenu.appendChild(liSubmenu);
+                }
+                
+                liMenuPrincipal.appendChild(ulSubmenu);
             }
 
             ulMenu.appendChild(liMenuPrincipal);
         }
 
         nav.appendChild(ulMenu);
-
         document.body.appendChild(nav);
         //----------------------MENU DISPOSITIVOS MOVILES----------------
         const menuIcon = document.querySelector('.menu-icon');
