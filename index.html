@@ -18,9 +18,7 @@
             </div>
         </section>
     </header>    
-    <footer>
-        <p><b>&copy; 2024 Multi-PC</b></p>
-    </footer>
+   
     <script>
     const products = [
         {
@@ -189,7 +187,16 @@
 
         contenedorProducto.appendChild(tarjeta);
         document.body.appendChild(contenedorProducto);
-        }
+    }
+        //----------------------FOOTER----------------
+        const abajo = document.createElement('footer');
+        const pAbajo = document.createElement('p');
+        pAbajo.style.fontWeight = 'bold';
+        pAbajo.innerHTML = '&copy; 2024 Multi-PC'
+        
+        abajo.appendChild(pAbajo);
+        document.body.appendChild(abajo);
+        
     
     </script>
 </body>
